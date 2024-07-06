@@ -1,3 +1,4 @@
+"use client"
 import { ReactNode } from 'react'
 import { CoreContent } from 'pliny/utils/contentlayer'
 import type { Blog, Authors } from 'contentlayer/generated'
@@ -62,12 +63,12 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
                 <ul className="flex flex-wrap justify-center gap-4 sm:space-x-12 xl:block xl:space-x-0 xl:space-y-8">
                   {authorDetails.map((author) => (
                     <li className="flex items-center space-x-2" key={author.name}>
-                      {author.logo && (
+                      {author.avatar && (
                         <Image
-                          src={author.logo}
+                          src={author.avatar}
                           width={38}
                           height={38}
-                          alt="logo"
+                          alt="avatar"
                           className="h-10 w-10 rounded-full"
                         />
                       )}
@@ -96,17 +97,28 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
             <div className="divide-y divide-gray-200 dark:divide-gray-700 xl:col-span-3 xl:row-span-2 xl:pb-0">
               <div className="prose max-w-none pb-8 pt-10 dark:prose-invert">{children}</div>
               <div className="pb-6 pt-6 text-sm text-gray-700 dark:text-gray-300">
-               
-
+                <Link href={discussUrl(path)} rel="nofollow">
+                  Discuss on Twitter
+                </Link>
+                {` • `}
+                <Link href={editUrl(filePath)}>View on GitHub</Link>
               </div>
-
+              {siteMetadata.comments && (
+                <div
+                  className="pb-6 pt-6 text-center text-gray-700 dark:text-gray-300"
+                  id="comment"
+                >
+              
+                  <Comments slug={slug} />
+                </div>
+              )}
             </div>
             <footer>
               <div className="divide-gray-200 text-sm font-medium leading-5 dark:divide-gray-700 xl:col-start-1 xl:row-start-2 xl:divide-y">
                 {tags && (
                   <div className="py-4 xl:py-8">
                     <h2 className="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">
-                      tags
+                      Tags
                     </h2>
                     <div className="flex flex-wrap">
                       {tags.map((tag) => (
@@ -156,4 +168,3 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
     </SectionContainer>
   )
 }
-//okpook

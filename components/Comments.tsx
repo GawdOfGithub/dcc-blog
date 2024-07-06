@@ -8,7 +8,7 @@ export default function Comments({ slug }: { slug: string }) {
   const [loadComments, setLoadComments] = useState(false)
 
   if (!siteMetadata.comments?.provider) {
-    return null
+    return 
   }
   return (
     <>
